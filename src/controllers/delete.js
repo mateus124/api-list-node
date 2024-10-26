@@ -1,23 +1,14 @@
 const Task = require("../entities/task");
 
-const updateTask = async (id, newData) => {
+const deleteTask = async (id) => {
   try {
-    const taskUpdate = await Task.update(
-      { title: newData.title, description: newData.description },
-      { where: { uuid: id } }
-    );
-
-    if (taskUpdate.rowsUpdated == 0) {
-      throw new Error("Usuário não encontrado");
-    }
-
-    const updatedTask = await Task.findByPk(id);
-    return updatedTask;
+    const taskDelete = await Task.destroy({ where: { uuid: id } });
+    return "task deletada";
   } catch (error) {
     throw error;
   }
 };
 
 module.exports = {
-  updateTask,
+  deleteTask,
 };

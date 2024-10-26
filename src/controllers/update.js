@@ -8,7 +8,7 @@ const updateTask = async (id, newData) => {
     );
 
     if (taskUpdate.rowsUpdated == 0) {
-      throw new Error("Usuário não encontrado");
+      throw new Error("Task não encontrada");
     }
 
     const updatedTask = await Task.findByPk(id);

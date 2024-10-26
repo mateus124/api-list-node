@@ -1,14 +1,17 @@
 const Task = require("../entities/task");
 
-const updateTask = async (id) => {
+const updateStatus = async (id) => {
   try {
-    const taskUpdate = await Task.update(
-      { title: newData.title, description: newData.description },
-      { where: { uuid: id } }
+    const [rowsUpdated] = await Task.update(
+      { checked: false },
+      { where: { uuid: id, checked: true } }
     );
 
-    if (taskUpdate.rowsUpdated == 0) {
-      throw new Error("Usuário não encontrado");
+    if (rowsUpdated == 0) {
+      const [rowsUpdated] = await Task.update(
+        { checked: true },
+        { where: { uuid: id, checked: false } }
+      );
     }
 
     const updatedTask = await Task.findByPk(id);
@@ -19,5 +22,5 @@ const updateTask = async (id) => {
 };
 
 module.exports = {
-  updateTask,
+  updateStatus,
 };
