@@ -1,9 +1,10 @@
 const Task = require("../entities/task");
 
 const updateTask = async (id, newData) => {
+  const { ntitle, ndescription } = newData;
   try {
     const taskUpdate = await Task.update(
-      { title: newData.title, description: newData.description },
+      { title: ntitle, ndescription },
       { where: { uuid: id } }
     );
 
